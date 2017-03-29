@@ -1,15 +1,15 @@
 /**
  * Created by May on 2017/3/21.
  */
-var mssql = require("mssql");
+const mssql = require("mssql");
 
-var sql = {};
+let sql = {};
 
 //连接参数配置
-var config = {
+const config = {
     user: "sa",
     password: "server!@#456",
-    server: "localhost",
+    server: "127.0.0.1",
     database: "T_M_DB",
     stream: true,
     option: {
@@ -17,7 +17,7 @@ var config = {
     },
     pool: {
         min: 0,
-        idleTimeoutMillis: 3000
+        idleTimeoutMillis: 30000
     }
 };
 
@@ -34,35 +34,11 @@ sql.direction = {
 };
 
 /**
- * 初始化连接参数
- * @param {string} user 用户名
- * @param {string} password 密码
- * @param {string} server 服务器地址
- * @param {string} database 数据库名称
- */
-sql.initConfig = function (user, password, server, database) {
-    config = {
-        user: user,
-        password: password,
-        server: server, // You can use 'localhost\\instance' to connect to named instance
-        database: database,
-        stream: false,
-        /*option:{
-         encrypt:true //Use this if you're on Windows Azure
-         },*/
-        pool: {
-            min: 0,
-            idleTimeoutMillis: 3000
-        }
-    };
-};
-
-/**
  * 执行存储过程
  * @param {string} procedure 存储过程名称
  * @param {JSON} params 存储过程参数
  * params的定义格式如：
- var params={
+ let params={
     //ID是存储过程的第一个参数，要去掉@符号
     ID:{
         //sqlType是该ID参数在sqlserver中的类型
@@ -83,14 +59,14 @@ sql.initConfig = function (user, password, server, database) {
  */
 sql.execute = function (procedure, params, func) {
     try {
-        var connection = new mssql.Connection(config, function (error) {
+        let connection = new mssql.connect(config, function (error) {
             if (error)
                 func(error);
             else {
-                var request = new mssql.Request(connection);
+                let request = new mssql.Request(connection);
                 //request.verbose=true;
                 if (params != null) {
-                    for (var index in params) {
+                    for (let index in params) {
                         if (params[index].direction == sql.direction.Output) {
                             request.output(index, params[index].sqlType);
                         }
@@ -103,7 +79,7 @@ sql.execute = function (procedure, params, func) {
                     if (error)
                         func(error);
                     else {
-                        for (var index in params) {
+                        for (let index in params) {
                             if (params[index].direction == sql.direction.Output) {
                                 params[index].outputValue = request.parameters[index].value;
                             }
@@ -129,23 +105,29 @@ sql.execute = function (procedure, params, func) {
  */
 sql.queryWithParams = function (sqltext, params, func) {
     try {
-        var connection = new mssql.Connection(config, function (err) {
-            if (err)
-                func(err);
-            else {
-                var request = new mssql.Request(connection);
+        const pool = new mssql.ConnectionPool(config, err => {
+            if (err) {
+                console.log(err);
+            } else {
+                const request = new mssql.Request(pool);
                 request.multiple = true;
-
                 if (params) {
-                    for (var index in params) {
+                    for (let index in params) {
                         request.input(index, params[index].sqlType, params[index].inputValue);
                     }
                 }
-
-                request.query(sqltext, func);
+                request.query(sqltext, function (err, result) {
+                    if (err) {
+                        return err;
+                    } else {
+                        return result.rowsAffected;
+                    }
+                })
             }
         });
-        connection.on("error", func);
+        pool.on("error", err => {
+            console.log(err);
+        });
     } catch (e) {
         func(e);
     }
@@ -164,7 +146,7 @@ sql.query = function (sqltext, func) {
  * 执行大批量数据的插入
  * @param {sqlserver.Table} table 需要插入的数据表
  * 数据表的定义如下：
- var table=new sql.sqlserver.Table('UserInfoTest');
+ let table=new sql.sqlserver.Table('UserInfoTest');
  table.create=true;
  table.columns.add('name',sqlHelper.sqlserver.NVarChar(50),{nullable:true});
  table.columns.add('pwd',sqlHelper.sqlserver.VarChar(200),{nullable:true});
@@ -176,10 +158,12 @@ sql.query = function (sqltext, func) {
 sql.bulkInsert = function (table, func) {
     try {
         if (table) {
-            var connection = new mssql.Connection(config, function (err) {
-                if (err) func(err)
+            let connection = new mssql.connect(config, function (err) {
+                if (err) {
+                    func(err);
+                }
                 else {
-                    var request = new mssql.Request(connection);
+                    let request = new mssql.Request(connection);
                     request.bulk(table, func);
                 }
             });
@@ -219,10 +203,10 @@ sql.queryViaStreamWithParams = function (sqltext, params, func) {
             if (err)
                 func.error(err);
             else {
-                var request = new mssql.Request();
+                let request = new mssql.Request();
                 request.stream = true;// You can set streaming differently for each request
                 if (params) {
-                    for (var index in params) {
+                    for (let index in params) {
                         request.input(index, params[index].sqlType, params[index].inputValue);
                     }
                 }
@@ -333,5 +317,6 @@ sql.queryViaStreamWithParams = function (sqltext, params, func) {
 sql.queryViaStream = function (sqltext, func) {
     sql.queryViaStreamWithParams(sqltext, null, func);
 };
+
 
 module.exports = sql;

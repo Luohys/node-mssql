@@ -5,11 +5,18 @@
  * Description :
  ******************************************/
 
-(function () {
+(function ($) {
   "use strict";
   $(function () {
+    $('#fullpage').fullpage({
+      sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', '#ccddff'],
+      navigation:true
+    });
+
+    const contain = document.getElementById('main');
+    contain.style = "width: 800px; height: 600px;";
     // 基于准备好的dom，初始化echarts实例
-    let myChart = echarts.init(document.getElementById('main'));
+    const myChart = echarts.init(contain);
     // 指定图表的配置项和数据
     let option = {
       title: {
@@ -33,4 +40,4 @@
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
   });
-})();
+})(jQuery);

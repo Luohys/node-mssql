@@ -83,7 +83,7 @@ sql.initConfig = function (user, password, server, database) {
  */
 sql.execute = function (procedure, params, func) {
     try {
-        var connection = new mssql.Connection(config, function (error) {
+        var connection = new mssql.ConnectionPool(config, function (error) {
             if (error)
                 func(error);
             else {
@@ -129,7 +129,7 @@ sql.execute = function (procedure, params, func) {
  */
 sql.queryWithParams = function (sqltext, params, func) {
     try {
-        var connection = new mssql.Connection(config, function (err) {
+        var connection = new mssql.ConnectionPool(config, function (err) {
             if (err)
                 func(err);
             else {

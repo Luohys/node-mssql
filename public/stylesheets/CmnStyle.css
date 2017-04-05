@@ -23,17 +23,17 @@ time, mark, audio, video {
     border: 0
 }
 
-body{
-    font-family: "微软雅黑", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+body {
+    font-family: "微软雅黑", sans-serif;
 }
 
-#main {
+#charts {
     /*width: 800px;
     height: 600px;*/
     margin: 50px auto;
 }
 
-#fullpage{
+#fullpage {
     z-index: 100;
 }
 
@@ -41,7 +41,7 @@ body{
     display: block;
     box-sizing: border-box;
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     height: 53px;
     width: 100%;
@@ -49,11 +49,48 @@ body{
     background: #222d32;
     z-index: 900;
 }
-.sec-gud.section h1{
-    line-height:200px;
+
+.main-top > nav > ul {
+    display: block;
+    height: 25px;
+}
+
+.main-top > nav > ul > li {
+    line-height: 53px;
+    float: right;
+    list-style: none;
+    margin: 0 15px;
+}
+
+.sec-gud.section h1 {
+    line-height: 200px;
     font-size: 90px;
 }
 
-.sec-gud.section h1,.sec-gud.section h2{
+.sec-gud.section h1, .sec-gud.section h2 {
     text-align: center;
+}
+
+nav > ul > li > a {
+    text-decoration: none;
+}
+
+nav > ul > li > a:link {
+    color: rgba(255, 255, 255, .6);
+}
+
+nav > ul > li > a:visited {
+    color: rgba(255, 255, 255, .6);
+}
+
+nav > ul > li > a:hover {
+    color: #ffffff;
+}
+
+nav > ul > li > a:active {
+    color: #ffffff;
+}
+
+section.bottom{
+    height: 450px;
 }

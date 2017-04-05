@@ -8,13 +8,14 @@
 (function ($) {
   "use strict";
   $(function () {
-    $('#fullpage').fullpage({
-      sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', '#ccddff'],
+    $('#main-content').fullpage({
+      anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
+      sectionsColor: ['#f2f2f2', '#C396C0', '#7BAABE', '#ccddff',"#5f5f5f"],
       navigation:true
     });
 
-    const contain = document.getElementById('main');
-    contain.style = "width: 800px; height: 600px;";
+    const contain = document.getElementById('charts');
+    contain.style = "width: 600px; height: 500px;";
     // 基于准备好的dom，初始化echarts实例
     const myChart = echarts.init(contain);
     // 指定图表的配置项和数据

@@ -15,7 +15,7 @@ userServ.addUser = function (callback) {
     class: {sqlType: sql.sqlserver.Int, inputValue: "4"},
     score: {sqlType: sql.sqlserver.Numeric(6, 2), inputValue: "88.74"}
   };
-  sql.queryWithParams1(sqlString, para, function (error, recordsets, affected) {
+  sql.queryWithParams(sqlString, para, function (error, recordsets, affected) {
     if (error) {
       return -1;
     } else {

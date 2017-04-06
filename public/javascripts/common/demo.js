@@ -10,7 +10,7 @@
   $(function () {
     $('#main-content').fullpage({
       anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
-      sectionsColor: ['#f2f2f2', '#C396C0', '#7BAABE', '#ccddff',"#5f5f5f"],
+      sectionsColor: ['#f2f2f2', '#A5CBE5', '#7BAABE', '#ccddff',"#5f5f5f"],
       navigation:true
     });
 

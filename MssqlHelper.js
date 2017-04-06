@@ -121,13 +121,7 @@ sql.queryWithParams = function (sqltext, params, func) {
             request.input(index, params[index].sqlType, params[index].inputValue);
           }
         }
-        request.query(sqltext, function (err, result) {
-          if (err) {
-            return err;
-          } else {
-            return result.rowsAffected;
-          }
-        })
+        request.query(sqltext, func)
       }
     });
     pool.on("error", err => {

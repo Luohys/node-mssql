@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title><%= title %></title>
 
-    <link rel="stylesheet" href="stylesheets/cmnstyle.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="stylesheets/fullPage/jquery.fullPage.css">
 
     <script src="javascripts/jQuery/jquery-2.2.3.min.js"></script>
@@ -17,7 +17,7 @@
 <div class="main-top">
     <nav>
         <ul class="nav-menu">
-            <li><a href="javascript:">hello</a></li>
+            <li><a href="javascript:">Home</a></li>
             <li><a href="javascript:">demo</a></li>
             <li><a href="javascript:">doc</a></li>
             <li><a href="javascript:">license</a></li>
@@ -31,6 +31,14 @@
         </section>
     </div>
     <div class="section sec-demo">
+        <div>
+            <ul class="chart-Category">
+                <li id="chart-line" class="line">line</li>
+                <li id="chart-bar" class="bar">bar</li>
+                <li id="chart-pie" class="pie">pie</li>
+                <li id="chart-scatter" class="scatter">scatter</li>
+            </ul>
+        </div>
         <div id="charts"></div>
     </div>
     <div class="section sec-bi">

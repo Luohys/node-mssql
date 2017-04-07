@@ -1,3 +1,10 @@
+/*******************************************
+ * File Name : app.js
+ * Author : May
+ * Create Date : 2017/4/7
+ * Description :
+ ******************************************/
+
 "use strict";
 
 const express = require('express');
@@ -8,7 +15,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
-const users = require('./routes/users');
+//const users = require('./routes/users');
 
 let app = express();
 

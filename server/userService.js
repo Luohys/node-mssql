@@ -1,6 +1,9 @@
 /**
  * Created by May on 2017/3/21.
  */
+
+"use strict";
+
 const sql = require('../MssqlHelper');
 let userServ = {};
 

@@ -12,7 +12,7 @@ const router = express.Router();
 const rptService = require('../server/rptService');
 
 router.get('/', function(req, res, next) {
-  res.render('chart');
+  res.render("chart",{ title: '报表系统' });
 });
 
 router.get('/demo/bar1',function (req, res) {

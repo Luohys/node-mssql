@@ -44,7 +44,7 @@ body {
   height: 53px;
   width: 100%;
   min-width: 800px;
-  background: #873343;
+  background: #872F34;
   z-index: 900;
 }
 
@@ -102,22 +102,40 @@ section.bottom {
 }
 
 .chart-Category li {
+  font-size: 12px;
   text-align: center;
-  line-height: 70px;
+  line-height: 50px;
   display: block;
-  background-color: #aaa;
+  background-color: #444;
   color: aliceblue;
   list-style: none;
-  height: 70px;
-  width: 70px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
-  margin-top: 75px;
+  margin-top: 40px;
   user-select: none;
   cursor: pointer;
   transition: background-color 1s, box-shadow 0.3s;
 }
 
+.chart-Category li:first-child{
+  margin-top: 70px;
+}
+
 .chart-Category li:hover {
   background-color: #39062b;
   box-shadow: 5px 5px 5px #888888;
+}
+
+.sec-bot ul{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sec-bot ul>li{
+  float: left;
+  display: block;
+  background: greenyellow;
+
 }

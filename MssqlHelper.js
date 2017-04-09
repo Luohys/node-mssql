@@ -4,18 +4,26 @@
  * Create Date : 2017/3/31
  * Description :
  ******************************************/
+
 "use strict";
 
 const mssql = require("mssql");
+const ini = require("./utility/IO/INI");
 
 let sql = {};
 
-//连接参数配置
+// 从配置文件读取配置信息
+const coi = (ini.loadFileSync("../public/config/dbConfig.ini")).getOrCreateSection("DataBase");
+const user = coi["user"];
+const pw = coi["pw"];
+const db = coi["database"];
+const host = coi["host"];
+// 连接参数配置
 const config = {
-  user: "sa",
-  password: "server!@#456",
-  server: "127.0.0.1",
-  database: "T_M_DB",
+  user: user,
+  password: pw,
+  server: host,
+  database: db,
   stream: true,
   option: {
     encrypt: true
@@ -112,7 +120,7 @@ sql.queryWithParams = function (sqltext, params, func) {
   try {
     const pool = new mssql.ConnectionPool(config, err => {
       if (err) {
-        console.log(err);
+        func(err);
       } else {
         const request = new mssql.Request(pool);
         request.multiple = true;
@@ -125,7 +133,7 @@ sql.queryWithParams = function (sqltext, params, func) {
       }
     });
     pool.on("error", err => {
-      console.log(err);
+      func(err);
     });
   } catch (e) {
     func(e);

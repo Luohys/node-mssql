@@ -108,7 +108,6 @@ exports.parse = function (data) {
     if (regex.comment.test(line)) {
       let match = line.match(regex.comment);
       comm = match[0];
-      return;
     } else if (regex.param.test(line)) {
       let match = line.match(regex.param);
       if (section) {

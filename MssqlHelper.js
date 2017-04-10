@@ -1,4 +1,4 @@
-/*******************************************
+﻿/*******************************************
  * File Name : MssqlHelper.js
  * Author : May
  * Create Date : 2017/3/31
@@ -13,7 +13,7 @@ const ini = require("./utility/IO/INI");
 let sql = {};
 
 // 从配置文件读取配置信息
-const coi = (ini.loadFileSync("../public/config/dbConfig.ini")).getOrCreateSection("DataBase");
+const coi = (ini.loadFileSync("../dbConfig.ini")).getOrCreateSection("DataBase");
 const user = coi["user"];
 const pw = coi["pw"];
 const db = coi["database"];
